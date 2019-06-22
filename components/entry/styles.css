@@ -1,0 +1,17 @@
+.entry{
+  padding: 5px;
+  margin-bottom:10px;
+  border: 1px solid rgb(190, 183, 183); 
+}
+
+.single-action-text:focus {
+    border: none;
+    outline-offset: unset;
+    outline: unset;
+}
+
+.single-action-text {
+    padding: 5px;
+    display: inline-block;
+    border: none;
+}
