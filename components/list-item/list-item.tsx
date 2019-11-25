@@ -1,56 +1,62 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import "./styles.css";
 
 export interface ListItemProps {
   id: string;
   text: string;
   isCompleted: boolean;
-  onItemChange: Function
+  // onItemChange: Function;
+  onTaskDescChange: Function;
+  onRemoveItem: Function;
+  // taskDetailsRef: HTMLInputElement;
 }
 
-export interface ListItemState {
-  id: string;
-  text: string;
-  isCompleted: boolean
-}
-
-export class ListItem extends Component<ListItemProps, ListItemState> {
-
+export class ListItem extends Component<ListItemProps> {
   constructor(props) {
     super(props);
-    this.state = {
-      id: props.id,
-      text: props.text,
-      isCompleted: props.isCompleted
-    };
+    //this.taskDetailsRef = React.createRef();
   }
 
-  onChange = (event) => {
-    this.setState({
-      text: event.target.value
-    });
-    const latestData = JSON.parse(JSON.stringify(this.state));
-    latestData.text = event.target.value;
-    this.props.onItemChange(latestData);
-    //console.log(this.state.text);
+  onTaskDescChange() {
+    this.props.onTaskDescChange(
+      (this.refs.taskDescRef as HTMLInputElement).value
+    );
   }
 
-  onRemoveItemClick = (event)=>{
+  onRemoveItemClick() {
     console.log(this);
   }
 
   componentDidUpdate() {
-    console.log('Component got updated');
-    // this.props.onItemChange(this.state);
+    console.log("Component got updated");
   }
 
   render() {
     // console.log('ListItem is going to render');
     return (
       <div className="list-item">
-        <input type="checkbox" className="toggle-selector" checked={this.state.isCompleted} />
-        <input className="list-item-text" defaultValue={this.state.text} onChange={this.onChange} />
-        <span className="remove-list-item" onClick={this.onRemoveItemClick}>X</span>
+        <input
+          type="checkbox"
+          className="toggle-selector"
+          checked={this.props.isCompleted}
+        />
+        <input
+          ref="taskDescRef"
+          className="list-item-text"
+          defaultValue={this.props.text}
+          onChange={() => {
+            this.onTaskDescChange();
+          }}
+        />
+        <span
+          className="remove-list-item"
+          onClick={() => {
+            this.props.onRemoveItem(this.props.id);
+          }}
+        >
+          X
+        </span>
       </div>
     );
-  };
-};
+  }
+}
