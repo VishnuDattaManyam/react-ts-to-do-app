@@ -38,7 +38,7 @@ export class ListItem extends Component<ListItemProps> {
         <input
           type="checkbox"
           className="toggle-selector"
-          checked={this.props.isCompleted}
+          // checked={this.props.isCompleted}
         />
         <input
           ref="taskDescRef"
